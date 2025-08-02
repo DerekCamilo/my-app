@@ -1,0 +1,102 @@
+/* reset / base tweaks */
+html, body, #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    font-family: Roboto, system-ui, sans-serif;
+    background: #1d1d1d;
+    color: white;
+}
+
+.app-root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* top bar */
+.top-bar {
+    backdrop-filter: blur(8px);
+}
+
+/* body: sidebar + content */
+.body-wrapper {
+    display: flex;
+    flex: 1 1 auto;
+    padding-top: 64px; /* account for AppBar height */
+    min-height: 0; /* allow flex children to scroll */
+}
+
+/* sidebar customizations */
+.drawer-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.drawer-toolbar {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.app-title {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.nav-list .MuiListItemButton-root {
+    transition: background 0.2s ease-in-out;
+}
+
+.nav-list .MuiListItemButton-root:hover {
+    background: rgba(25, 118, 210, 0.08);
+}
+
+.drawer-footer {
+    background: #90caf9;
+    border-top: 1px solid #f9f9fb;
+}
+
+.signout-btn {
+    text-transform: none;
+}
+
+/* main content */
+.main-content {
+    flex-grow: 1;
+    padding: 24px;
+    overflow: auto;
+}
+
+.welcome-text {
+    margin-top: 0;
+}
+
+/* cards */
+.card {
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+}
+
+/* footer */
+.app-footer {
+    padding: 12px 16px;
+    background: #1d1d1d;
+    text-align: center;
+    border-top: 1px solid #f9f9fb;
+    flex-shrink: 0;
+}
+
+/* subtle scrollbar styling */
+.main-content::-webkit-scrollbar {
+    width: 10px;
+}
+.main-content::-webkit-scrollbar-track {
+    background: navy;
+    border-radius: 5px;
+}
+.main-content::-webkit-scrollbar-thumb {
+    background: navy;
+    border-radius: 5px;
+}

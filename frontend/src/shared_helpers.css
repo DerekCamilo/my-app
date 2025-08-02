@@ -1,0 +1,28 @@
+.button-styling {
+
+}
+.button-styling:hover {
+
+}
+.button-styling:active {
+
+}
+.drop-styling {
+
+}
+.drop-styling:hover {
+
+}
+.text-primary {
+    color: #000000 !important;
+    font-size: 12px;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+.text-secondary {
+    color: #ff7a7a;
+    font-size: 12px;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+.text-success {
+    color: green;
+}
