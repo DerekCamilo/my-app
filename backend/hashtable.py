@@ -74,7 +74,7 @@ def buildlabelandurl(train_json, label_map):
     with open(train_json, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    img_table = Hashtable(101)
+    img_table = Hashtable(100003)
     for img in data.get('images', []):
         img_id = int(img['imageId'])
         img_table.replace(img_id, labelURLAttributes(img['url']))
