@@ -1,5 +1,6 @@
 import json
 import csv
+from bisect import bisect_left
 
 train_json = "C:/Users/rnldi/Downloads/project3files/100kitems.json"
 label_csv = "C:/Users/rnldi/Downloads/project3files/iMat_fashion_2018_label_map_228.csv"
@@ -112,13 +113,57 @@ def bringupimage(img_table, img_id):
             return v.url
     return None
 
+class Sortedlist:
+    def __init__(self):
+        self.keys = []
+        self.values = []
+    def replace(self, key, val):
+        i = bisect_left(self.keys, key)
+        if i < len(self.keys) and self.keys[i] == key:
+            self.values[i] = val
+        else:
+            self.keys.insert(i, key)
+            self.values.insert(i, val)
+    def lookup(self, key):
+        i = bisect_left(self.keys, key)
+        if i < len(self.keys) and self.keys[i] == key:
+            return self.values[i]
+        raise KeyError()
+    def items(self):
+        return zip(self.keys, self.values)
+
+def buildlabelurlsort(train_json, label_map):
+    with open(train_json, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    sl = Sortedlist()
+    for img in data.get('images', []):
+        sl.replace(int(img['imageId']), labelURLAttributes(img['url']))
+    for ann in data.get('annotations', []):
+        rec = sl.lookup(int(ann['imageId']))
+        rec.label_ids = [int(x) for x in ann.get('labelId', [])]
+        rec.label_names = [label_map.get(l, '') for l in rec.label_ids]
+        sl.replace(int(ann['imageId']), rec)
+    return sl
+
+def sluser_search(sl, label_id):
+    matchedcloth = []
+    for img_id, info in sl.items():
+        if label_id in info.label_ids:
+            matchedcloth.append(img_id)
+    return matchedcloth
+
 def main():
     label_map = load_label_map(label_csv)
     img_table = buildlabelandurl(train_json, label_map)
     records = table_to_list(img_table)
-    print(json.dumps(records, indent=2))
+    print(json.dumps(records, indent=2)) # console tests
     print(len(records), "items")
     print(user_search(img_table,1))
     print(bringupimage(img_table, 30))
+    sl = buildlabelurlsort(train_json, label_map)
+    records_sl = table_to_list(sl)
+    print(json.dumps(records_sl, indent=2))
+    print(len(records), "items")
+    print(sluser_search(sl, 1))
 if __name__ == '__main__':
     main()
