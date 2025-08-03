@@ -105,6 +105,13 @@ def user_search(img_table, label_id):
             matchedcloth.append(img_id)
     return matchedcloth
 
+def bringupimage(img_table, img_id):
+    index = img_table._hash(img_id)
+    for k, v in img_table.buckets[index]:
+        if k == img_id:
+            return v.url
+    return None
+
 def main():
     label_map = load_label_map(label_csv)
     img_table = buildlabelandurl(train_json, label_map)
@@ -112,5 +119,6 @@ def main():
     print(json.dumps(records, indent=2))
     print(len(records), "items")
     print(user_search(img_table,1))
+    print(bringupimage(img_table, 30))
 if __name__ == '__main__':
     main()
