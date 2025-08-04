@@ -2,8 +2,8 @@ import json
 import csv
 from bisect import bisect_left
 
-train_json = "C:/Users/rnldi/Downloads/project3files/100kitems.json"
-label_csv = "C:/Users/rnldi/Downloads/project3files/iMat_fashion_2018_label_map_228.csv"
+train_json = "../100kitems.json"
+label_csv = "../iMat_fashion_2018_label_map_228.csv"
 
 class labelURLAttributes:
     def __init__(self,url):

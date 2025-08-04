@@ -18,6 +18,8 @@ Run this **inside the `backend/` folder** (one time only):
 
 ```bash
 python -m venv .venv
+pip install fastapi uvicorn
+python -m uvicorn main:app --reload --port 8000
 ```
 
 ---

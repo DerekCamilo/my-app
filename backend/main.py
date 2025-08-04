@@ -4,7 +4,6 @@ from routes import items
 
 app = FastAPI(title="MyApp API")
 
-# ✅ Allow frontend (Vite on port 5173) to talk to backend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -13,7 +12,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ✅ Register routes
 app.include_router(items.router)
 
 @app.get("/")

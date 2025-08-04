@@ -9,7 +9,7 @@ function Heading() {
           <Grid item xs={12}>
             <Paper elevation={12} sx={{p: 2, m: 2}}>
               <h1 style={{ textAlign: "center" }}>
-                Seth Durrance is a Faggot
+                Unused
               </h1>
             </Paper>
           </Grid>
