@@ -41,6 +41,9 @@ export default function App() {
     const [labelMap, setLabelMap] = useState([]);
     const [labelLoading, setLabelLoading] = useState(true);
     const [dataLoading, setDataLoading] = useState(false);
+    const [labelSearchTime, setLabelSearchTime] = useState(null);
+    const [labelNameSearchTime, setLabelNameSearchTime] = useState(null);
+    const [imageFetchTime, setImageFetchTime] = useState(null);
 
     //Switches the data structure being used
     useEffect(() => {
@@ -58,31 +61,43 @@ export default function App() {
 
     //Image ID by Label ID
     const searchByLabel = async () => {
+        const start = performance.now();
         try {
             const res = await API.get(`/images/search/${labelId}`);
             setSearchResults(res.data.image_ids);
         } catch (err) {
             console.error("Search failed", err);
+        } finally {
+            const end = performance.now();
+            setLabelSearchTime((end - start).toFixed(2));
         }
     };
 
     //Image ID by Label Name
     const searchByLabelName = async () => {
+        const start = performance.now();
         try {
             const res = await API.get(`/images/search_by_name/${labelSearch}`);
             setSearchResults(res.data.image_ids);
         } catch (err) {
             console.error("Label name search failed", err);
+        } finally {
+            const end = performance.now();
+            setLabelNameSearchTime((end - start).toFixed(2));
         }
     };
 
     //Image by Image Id
     const getImageById = async () => {
+        const start = performance.now();
         try {
             const res = await API.get(`/images/image/${imageId}`);
             setImageUrl(res.data.url);
         } catch (err) {
             console.error("Image fetch failed", err);
+        } finally {
+            const end = performance.now();
+            setImageFetchTime((end - start).toFixed(2));
         }
     };
 
@@ -147,6 +162,11 @@ export default function App() {
                                 Search by ID
                             </Button>
                         </Box>
+                        {labelSearchTime && (
+                            <Typography variant="caption" color="text.secondary" sx={{ mb: 2 }}>
+                                Search took {labelSearchTime} ms
+                            </Typography>
+                        )}
 
                         {/*Label Name Button and search bar*/}
 
@@ -167,6 +187,11 @@ export default function App() {
                                 Search by Name
                             </Button>
                         </Box>
+                         {labelNameSearchTime && (
+                            <Typography variant="caption" color="text.secondary" sx={{ mb: 2 }}>
+                                Search took {labelNameSearchTime} ms
+                            </Typography>
+                        )}
 
                         {/*Image ID Button and search bar*/}
 
@@ -186,6 +211,11 @@ export default function App() {
                                 Get Image URL
                             </Button>
                         </Box>
+                        {imageFetchTime && (
+                            <Typography variant="caption" color="text.secondary" sx={{ mb: 2 }}>
+                                Fetch took {imageFetchTime} ms
+                            </Typography>
+                        )}
 
                         {/*search results popup*/}
 
@@ -207,6 +237,7 @@ export default function App() {
                                 <Box mt={1}><img src={imageUrl} alt="preview" width="200" /></Box>
                             </Box>
                         )}
+                        <br/>
 
                         {/*Example Data Button*/}
 
