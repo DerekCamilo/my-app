@@ -167,6 +167,7 @@ export default function App() {
                                 Search took {labelSearchTime} ms
                             </Typography>
                         )}
+                        <br/><br/>
 
                         {/*Label Name Button and search bar*/}
 
@@ -192,6 +193,7 @@ export default function App() {
                                 Search took {labelNameSearchTime} ms
                             </Typography>
                         )}
+                        <br/><br/>
 
                         {/*Image ID Button and search bar*/}
 
@@ -216,11 +218,12 @@ export default function App() {
                                 Fetch took {imageFetchTime} ms
                             </Typography>
                         )}
+                        <br/><br/>
 
                         {/*search results popup*/}
 
                         {searchResults.length > 0 && (
-                            <Paper sx={{ p: 2, mb: 2 }}>
+                            <Paper sx={{  maxHeight: 300, overflowY: "scroll",  p: 2, mb: 2 }}>
                                 <Typography>Found {searchResults.length} images:</Typography>
                                 <ul>{searchResults.map((id) => <li key={id}>{id}</li>)}</ul>
                             </Paper>
